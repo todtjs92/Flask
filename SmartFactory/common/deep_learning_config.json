@@ -1,0 +1,6 @@
+{
+	"model_file_name": "[sample]-casting-normal-and-defect-for-binaryclassification.h5",
+	"task_type": "binary",
+	"JUDGE_TH": "0.5",
+	"MAIL_TH": "0.998888"
+}

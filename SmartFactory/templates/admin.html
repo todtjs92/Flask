@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Frontend - AI</title>
+
+    <!--favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- Custom fonts for this template-->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <br>
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-icon rotate-n-15">
+<!--                    <i class="fas fa-laugh-wink"></i>-->
+                    <img class="img-fluid px-8 mt-7 mb-7" style="height: auto;width: 100%;" src="{{ url_for('static', filename='favicon.png') }}" alt="...">
+
+                </div>
+                <div class="sidebar-brand-text lg-3">Company<sup>AI SmartFactory</sup></div>
+            </a>
+
+            <br>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <br>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Image Generators
+            </div>
+
+            <!-- Nav Item - AI Prediction -->
+            <li class="nav-item active">
+                <a class="nav-link" href="/">
+                      <i class="fad fa-atom  fa-user"></i>
+                    <span>AI Prediction </span></a>
+            </li>
+
+            <!-- Nav Item - Admin page -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#" onclick="go_adminPage();">
+                      <i class="fas fa-fw fa-table"></i>
+                    <span>Administration </span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
+            <div class="sidebar-card d-none d-lg-flex">
+                <img class="sidebar-card-illustration mb-2" src="/static/img/undraw_rocket.svg" alt="...">
+                <p class="text-center mb-2"><strong>AI Webservice</strong> Home</p>
+                <a class="btn btn-success btn-sm" href="/">Go home</a>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
+                                <img class="img-profile rounded-circle"
+                                    src="/static/img/admin_user.png">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Admin page</h1>
+                    <p class="mb-4">Please visit the <a target="_blank" href="https://class101.net/products/sZM8FsbopYLREr3H5Chx"> AI Coding in Class101, Chapter16</a>.</p>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Status -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">AI model status</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+
+                                    <!-- Deeplearning Model Status -->
+                                    <div class="row">
+
+                                        <div class="col-lg-6 mb-4">
+                                            <div id="card_status_load" class="card bg-secondary text-white shadow">
+                                                <div class="card-body">
+                                                    Loaded
+                                                    <div class="text-white-50 small">AI 불량 검사 시뮬레이션이 가능한 상태입니다</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 mb-4">
+                                            <div id="card_status_kill" class="card bg-secondary text-white shadow">
+                                                <div class="card-body">
+                                                    Down
+                                                    <div class="text-white-50 small">AI 모델을 로드가 필요한 상태입니다</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+                            <!-- Control group -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">AI Model Control Groups</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="my-2"></div>
+                                    <a href="#" class="btn btn-success btn-icon-split btn-lg" onclick="modelLoad();">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">AI Model Load &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    </a>
+                                    <hr>
+                                    <a href="#" class="btn btn-warning btn-icon-split btn-lg" onclick="modelKill();">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                        </span>
+                                        <span class="text">AI Model Shutdown</span>
+                                    </a>
+
+                                </div>
+                            </div>
+
+                            <!-- File upload -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">WebSimulator (Image generator - 1)</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="my-2"></div>
+
+                                    <form id="fileUploadForm" enctype="multipart/form-data">
+
+                                        <div class="custom-file">
+                                            <input type="file" name="file" class="custom-file-input" id="customFile" accept=".gif, .bmp, .jpg, .png" onchange="javascript:document.getElementById('fileName').value = this.value">
+                                            <label class="custom-file-label" for="customFile">이미지 파일 선택</label>
+                                        </div>
+
+                                        <hr>
+
+                                        <input type="text" id="fileName" name="fileName" style="width: 100%; border:none;" disabled >
+
+                                        <hr>
+
+                                        <input class="btn btn-outline-primary btn-lg" style="width: 100%" type="button" value="AI Inference" onclick="imageGeneratorByForm();">
+
+
+                                    </form>
+
+                                    <div id="serverData">
+                                        <!-- 서버에서 가져온 값 붙여서 화면에 보여주는 영역 (아직은 빈공간) -->
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Systems Description -->
+                        <div class="col-lg-6 mb-4">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Private Settings</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 18.5rem;"
+                                            src="/static/img/undraw_posting_photo.svg" alt="...">
+                                    </div>
+                                    <p>Deeplearning 기반 불량 제품 예측 자동화 시스템 &nbsp;
+                                    <a target="_blank" rel="nofollow" href="https://class101.net/products/sZM8FsbopYLREr3H5Chx">Go Link &rarr;</a></p>
+
+                                    <hr><br>
+
+                                    <!-- 로그아웃 버튼 -->
+                                    <a href="/admin/logout" class="btn btn-danger btn-user btn-block">
+                                        <span class="icon text-white-50">
+                                            <i class='fas fa-sign-out-alt' aria-hidden="true"></i>
+                                        </span>
+                                        <span class="text">Logout</span>
+                                    </a>
+
+                                    <hr><br>
+
+                                    <!-- 관리자 설정 값 1 -->
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-default">Email Alarm Use</span>
+                                      </div>
+                                      <input type="text" id="mail_use_yn" value="{{ mail_use_yn }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" placeholder="True or False">
+                                    </div>
+
+                                    <hr>
+
+                                    <!-- 관리자 설정 값 2 -->
+                                    <div class="input-group mb-3">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroup-sizing-defaultasfasf">Email Alarm TH &nbsp;</span>
+                                      </div>
+                                      <input type="number" id="mail_th" value="{{ mail_th }}" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-defaultasfasf" placeholder="0.0 ~ 1.0" min="0.0" max="1.0" step="0.01">
+                                    </div>
+                                    <hr>
+
+
+                                    <input class="btn btn-outline-primary btn-lg" style="width: 100%" type="button" value="Save" onclick="save_setting();">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image -->
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Image</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <img id="inference_image" src="/static/images/deeplearning_logo_5.png" class="card-img-top" alt="/static/images/deeplearning_logo_5.png" style="width: 100%; height: auto;">
+                                    <hr>
+                                    <div> <span>Probability: </span> <span id="inference_image_prob">0.95</span> </div>
+                                    <div> <span>Prediction Category: </span>  <span id="inference_image_category">1</span> </div>
+                                    <div> <span>Date: </span>  <span id="inference_image_date">2022-12-11</span> </div>
+                                    <hr>
+                                    <code>AI 모델 예측 결과 Low Quality 일 확률은 <span id="percentage">95</span> % 입니다. </code>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- ROI -->
+                        <div class="col-xl-3 col-lg-3">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header -->
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">AI Region of interest</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <img id="gradcam_image" src="/static/images/deeplearning_logo_5.png" class="card-img-top" alt="/static/images/deeplearning_logo_5.png" style="width: 100%; height: auto;">
+                                    <hr>
+                                    <div> <span>Probability: </span> <span id="gradcam_image_prob">0.95</span> </div>
+                                    <div> <span>Prediction Category: </span>  <span id="gradcam_image_category">1</span> </div>
+                                    <div> <span>Date: </span>  <span id="gradcam_image_date">2022-12-11</span> </div>
+                                    <hr>
+                                    <code>AI 모델이 요청이미지에 대해 관심을 갖고 예측한 영역 입니다.</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">AI Prediction History</h1>
+                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+                        For more information about DataTables, please visit the <a target="_blank"
+                            href="https://datatables.net">official DataTables documentation</a>.</p>
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">AI Prediction History</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <!-- DATATABLES DISPLAY -->
+                                    <table id="data_table" class="table table-striped table-bordered" width="100%" cellspacing="0" style="text-align: center;font-size: 15px;">
+                                        <colgroup>
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                            <col width="12.5%" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th class="align-middle">ID</th>
+                                                <th class="align-middle">Probability</th>
+                                                <th class="align-middle">Predicted Category</th>
+                                                <th class="align-middle">Original Image</th>
+                                                <th class="align-middle">ROI Image</th>
+                                                <th class="align-middle">Image Name</th>
+                                                <th class="align-middle">Image Path</th>
+                                                <th class="align-middle">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                        <tfoot>
+                                            <!--<tr>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                                <!--<th></th>-->
+                                            <!--</tr>-->
+                                        </tfoot>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; AI코딩두두등장 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/static/js/demo/chart-area-demo.js"></script>
+    <script src="/static/js/demo/chart-pie-demo.js"></script>
+
+    <!-- BEGIN DATATABLES DEFAULT -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/dataTables.bootstrap4.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dataTables.bootstrap4.min.css') }}">
+    <!-- END DATATABLES DEFAULT -->
+
+<!-- BEGIN OF Javascript 코드 -->
+<script type="text/javascript">
+
+// 페이지 로드 시 모델 상태 체크
+$(document).ready(function(){
+
+    $("#inference_image_prob").text("");
+    $("#inference_image_category").text("");
+    $("#inference_image_date").text("");
+    $("#gradcam_image_prob").text("");
+    $("#gradcam_image_category").text("");
+    $("#gradcam_image_date").text("");
+    $("#percentage").text("-");
+
+    var modelStatus = checkModelStatus();
+    if(modelStatus == "DOWN") {
+        // 상태값 초기화
+        $("#card_status_load").removeClass();
+        $("#card_status_kill").removeClass();
+
+        // 상태값 변경
+        $("#card_status_load").addClass("card bg-secondary text-white shadow");   // 회색
+        $("#card_status_kill").addClass("card bg-warning text-white shadow");     // 노랑
+    } else {
+        // 상태값 초기화
+        $("#card_status_load").removeClass();
+        $("#card_status_kill").removeClass();
+
+        // 상태값 변경
+        $("#card_status_load").addClass("card bg-success text-white shadow");     // 초록
+        $("#card_status_kill").addClass("card bg-secondary text-white shadow");   // 회색
+    }
+
+
+    // 데이터테이블즈 테이블 객체
+    var table = $('#data_table').DataTable({
+        "infoCallback": function( settings, start, end, max, total, pre ) {
+            $("#data_table").find('td').css('text-align','center'); // Column centered
+            var api = this.api();
+            var pageInfo = api.page.info();
+            return "showing " + start +" to " + end + " of "+ total + " entries";
+        },
+        onError: function (table) {
+            console.log("[error] " + JSON.stringify(table));
+        },
+        initComplete: function(settings, json) {
+			$(".dt-button").hide();
+	     },
+        "bProcessing": true,
+        "loadingMessage"    : 'Loading...',
+        "bAutoWidth"        : false,
+        "pagingType"        : "simple_numbers",
+        "bStateSave"        : false,
+        "lengthChange": true,
+        "responsive": true,
+        "order": [[0, "desc"]]
+    });
+    // END DATATALBES datatable.js
+
+    // 테이블에 보여줄 데이터 Ajax 요청. 요청 후 응답은 위 데이터테이블즈 테이블 객체에 붙일 예정
+    $.ajax({
+        timeout: 30000,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        url: '/api/history/',
+        cache: false,
+        async: false,
+        success: function(datalist) {
+            table.clear();
+
+            datalist[0].forEach(function(data) {
+                var gradcamimage_filepath = data['GradCam']['GradCAMImgPath'];
+                var gradcamimage_filename = data['GradCam']['GradCAMImgName'];
+                var gradcamimage_url = "/" + gradcamimage_filepath + "/" + gradcamimage_filename;
+
+                var image_filepath = data['Origin']['OriginImgPath'];
+                var image_filename = data['Origin']['OriginImgName'];
+                var image_url = "/" + image_filepath + "/" + image_filename;
+
+                var row = "<tr>";
+                row += "<td class='align-middle' style='text-align:center'>" + data['ID'] + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + data['Inference']['Pred'] + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>Category-" + data['Inference']['InferenceResult'] + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + "<img src='" +  image_url + "' style='width: 100%; height: auto;'>" + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + "<img src='" +  gradcamimage_url + "' style='width: 100%; height: auto;'>" + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + data['Origin']['OriginImgName'] + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + data['Origin']['OriginImgPath'] + "</td>";
+                row += "<td class='align-middle' style='text-align:center'>" + data['RequestTime'] + "</td>";
+                row += "</tr>";
+                table.row.add($(row));
+            });
+
+            table.draw();
+
+        },
+        error : function(error) {
+            console.log(error)
+        }
+    });
+
+});
+
+
+/*
+ * 관리자 세팅값 변경
+ */
+function save_setting() {
+    // 입력한 값 획득
+    var update_mail_th = $("#mail_th").val();
+    var update_mail_use_yn = $("#mail_use_yn").val();
+
+    // 공백 제거
+    update_mail_th = update_mail_th.trim()
+    update_mail_use_yn = update_mail_use_yn.trim()
+
+    // 서버로 전달 할 데이터 만들기 (JSON객체)
+    var PARAMETER = JSON.stringify({"update_mail_th": update_mail_th, "update_mail_use_yn": update_mail_use_yn})  // JSON객체로 보내려면, JSON구조({k:v,k:v,..})로 만들고나서 JSON.stringify(..) 로 감싸줘야함
+
+    // 요청 URI
+    var URI = "/api/setting/update"
+
+    $.ajax({
+        type: 'POST',                               // HTTP Method
+        url: URI,                                   // 요청 URI
+        data: PARAMETER,
+        contentType: 'application/json;charset=utf-8',    // 어떤 형태로 데이터를 보낼 것인지 : AJAX의 data속성에 들어가는 데이터를 "JSON데이터"로 주고 싶을때 설정. "text/html;charset=utf-8". default 값으로 "application/x-www-form-urlencoded; charset=UTF-8" 타입 임
+        dataType: 'text',                           // 처리 후 반환되는 데이터 형식
+        cache: false,                               // 캐싱 처리 X
+        async: false,                               // 비동기 Off
+        timeout: 30000,                             // 대기시간 최대 30초
+        success: function(data) {
+            alert("ajax 통신 성공");
+            if(data=="SUCCESS"){
+                alert("관리자 세팅값 수정 성공");
+            } else {
+                console.log("data="+data);
+                alert("관리자 세팅값 수정 실패");
+            }
+        },
+        error : function(e) {
+            alert("[error] ajax 기반 HTTP 통신 실패. 관리자에게 문의하세요.");
+            alert(e)
+            console.log(e)
+        }
+    });
+}
+
+
+/*
+ * 딥러닝 모델 상태값
+ */
+function checkModelStatus(){
+
+    // 요청 URI
+    var URI = "/deeplearning/modelstatus"
+    var model_status = "";
+    $.ajax({
+        type: 'GET',                               // HTTP Method
+        url: URI,                                   // 요청 URI
+        dataType: 'json',                           // 처리 후 반환되는 데이터 형식
+        cache: false,                               // 캐싱 처리 X
+        async: false,                               // 비동기 Off
+        timeout: 30000,                             // 대기시간 최대 30초
+        success: function(data) {
+            model_status = data["status"];
+        },
+        error : function(e) {
+            alert("[error] ajax 기반 HTTP 통신 실패. 관리자에게 문의하세요.");
+            alert(e)
+            console.log(e)
+        }
+    });
+
+    return model_status;
+}
+
+
+/*
+ * 관리자 페이지
+ */
+function go_adminPage(){
+    {% if session.get('AUTH')=="[ROLE_ADMIN]" %}
+        location.replace("/admin/");
+        alert("이미 로그인 되어 있음");
+    {% else %}
+        // 로그인 창
+        var inputString = prompt('비밀번호를 입력하세요', '');
+
+        $("#fake_password").val(inputString);
+        $("#loginBtn").trigger("click");
+    {% endif %}
+}
+
+
+/*
+ * 딥러닝 모델 로드
+ */
+function modelLoad(){
+    // 컨펌 얼럿
+    var result = confirm('Are you sure you want to load model?');
+    if(result) {
+        // 모델 상태 체크
+        var modelStatus = checkModelStatus();
+        if(modelStatus == "DOWN") {
+            // 상태값 초기화
+            $("#card_status_load").removeClass();
+            $("#card_status_kill").removeClass();
+
+            // 상태값 변경
+            $("#card_status_load").addClass("card bg-secondary text-white shadow");   // 회색
+            $("#card_status_kill").addClass("card bg-warning text-white shadow");     // 노랑
+        } else {
+            // 상태값 초기화
+            $("#card_status_load").removeClass();
+            $("#card_status_kill").removeClass();
+
+            // 상태값 변경
+            $("#card_status_load").addClass("card bg-success text-white shadow");     // 초록
+            $("#card_status_kill").addClass("card bg-secondary text-white shadow");   // 회색
+
+            alert("이미 모델 로드 되어 있습니다");
+
+            return;
+        }
+
+        // 요청 URI
+        var URI = "/deeplearning/modelload"
+
+        $.ajax({
+            type: 'POST',                               // HTTP Method
+            url: URI,                                   // 요청 URI
+            dataType: 'json',                           // 처리 후 반환되는 데이터 형식
+            cache: false,                               // 캐싱 처리 X
+            async: false,                               // 비동기 Off
+            timeout: 30000,                             // 대기시간 최대 30초
+            success: function(data) {
+                if (data["result"] == "MODEL_LOAD_SUCCESS") {
+                    console.log(data["result"] + " 입니다!");
+                    alert("딥러닝 모델이 성공적으로 로드 됬습니다.");
+
+                    // 상태값 초기화
+                    $("#card_status_load").removeClass();
+                    $("#card_status_kill").removeClass();
+
+                    // 상태값 변경
+                    $("#card_status_load").addClass("card bg-success text-white shadow");   // 초록
+                    $("#card_status_kill").addClass("card bg-secondary text-white shadow"); // 회색
+                } else {
+                    alert("[error] DeepLearning Model Load Fail !" + data["result"]);
+                }
+            },
+            error : function(e) {
+                alert("[error] ajax 기반 HTTP 통신 실패. 관리자에게 문의하세요.");
+                alert(e)
+            }
+        });
+    } else {
+        // TODO: 모델 상태 체크
+    }
+}
+
+
+/*
+ * 딥러닝 모델 중지
+ */
+function modelKill(){
+    // 컨펌 얼럿
+    var result = confirm('Are you sure you want to kill model ?');
+    if(result) {
+        // 모델 상태 체크
+        var modelStatus = checkModelStatus();
+        if(modelStatus == "DOWN") {
+            // 상태값 초기화
+            $("#card_status_load").removeClass();
+            $("#card_status_kill").removeClass();
+
+            // 상태값 변경
+            $("#card_status_load").addClass("card bg-secondary text-white shadow");   // 회색
+            $("#card_status_kill").addClass("card bg-warning text-white shadow");     // 노랑
+
+            alert("이미 모델 중지 되어 있습니다");
+
+            return;
+        } else {
+            // 상태값 초기화
+            $("#card_status_load").removeClass();
+            $("#card_status_kill").removeClass();
+
+            // 상태값 변경
+            $("#card_status_load").addClass("card bg-success text-white shadow");     // 초록
+            $("#card_status_kill").addClass("card bg-secondary text-white shadow");   // 회색
+        }
+
+        // 요청 URI
+        var URI = "/deeplearning/modelkill"
+
+        $.ajax({
+            type: 'POST',                               // HTTP Method
+            url: URI,                                   // 요청 URI
+            dataType: 'json',                           // 처리 후 반환되는 데이터 형식
+            cache: false,                               // 캐싱 처리 X
+            async: false,                               // 비동기 Off
+            timeout: 30000,                             // 대기시간 최대 30초
+            success: function(data) {
+                if (data["result"] == "MODEL_KILL_SUCCESS") {
+                    alert("딥러닝 모델이 성공적으로 종료 되었습니다. ");
+
+                    // 상태값 초기화
+                    $("#card_status_load").removeClass();
+                    $("#card_status_kill").removeClass();
+
+                    // 상태값 변경
+                    $("#card_status_load").addClass("card bg-secondary text-white shadow");   // 회색
+                    $("#card_status_kill").addClass("card bg-warning text-white shadow"); // 노랑
+                } else {
+                    alert("[error] DeepLearning Model Kill Fail !" + data["result"]);
+                }
+            },
+            error : function(e) {
+                alert("[error] ajax 기반 HTTP 통신 실패. 관리자에게 문의하세요.");
+                alert(e)
+            }
+        });
+    } else {
+        // TODO: 모델 상태 체크
+    }
+}
+
+
+/*
+ * 인퍼런스 요청 by. 이미지발생기-1(시뮬레이터-1)
+ */
+function imageGeneratorByForm() {
+    // 모델 상태 체크
+    var modelStatus = checkModelStatus();
+    if(modelStatus == "DOWN") {
+        // 상태값 초기화
+        $("#card_status_load").removeClass();
+        $("#card_status_kill").removeClass();
+
+        // 상태값 변경
+        $("#card_status_load").addClass("card bg-secondary text-white shadow");   // 회색
+        $("#card_status_kill").addClass("card bg-warning text-white shadow");     // 노랑
+
+        alert("모델을 먼저 로드 해주세요.");
+
+        return;
+    } else {
+        // 상태값 초기화
+        $("#card_status_load").removeClass();
+        $("#card_status_kill").removeClass();
+
+        // 상태값 변경
+        $("#card_status_load").addClass("card bg-success text-white shadow");     // 초록
+        $("#card_status_kill").addClass("card bg-secondary text-white shadow");   // 회색
+    }
+
+
+    var URI = "/deeplearning/inference"
+
+    // 폼 가져오기
+    var form = $('#fileUploadForm')[0];
+
+    // 서버로 전달할 폼데이터 만들기
+    var data = new FormData(form);
+
+	$.ajax({
+        type: "POST",
+        url: URI,
+        contentType: false,
+        processData: false,
+        dataType: 'json',                           // 처리 후 반환되는 데이터 형식
+        data: data,                                 // 폼데이터. 파일 들어가 있음.
+        enctype: 'multipart/form-data',
+        cache: false,
+        async: false,                               // 비동기 Off
+        timeout: 30000,                             // 대기시간 최대 30초
+        success: function(data){
+            var image_filepath = data[0]['Origin']['OriginImgPath'];
+            var image_filename = data[0]['Origin']['OriginImgName'];
+            var image_url = "/" + image_filepath + "/" + image_filename;
+
+            var gradcamimage_filepath = data[0]['GradCam']['GradCAMImgPath'];
+            var gradcamimage_filename = data[0]['GradCam']['GradCAMImgName'];
+            var gradcamimage_url = "/" + gradcamimage_filepath + "/" + gradcamimage_filename;
+
+            // id가 serverData인 html태그에 서버값 뿌려주기
+            //$("#serverData").text(data_json_object);
+            //$("#serverData").html("<b>"+data_json_object+"<b>");
+
+            $("#inference_image").attr("src", image_url);
+            $("#gradcam_image").attr("src", gradcamimage_url);
+
+            $("#inference_image_prob").text(data[0]['Inference']['Pred']);
+            $("#inference_image_category").text(data[0]['Inference']['InferenceResult']);
+            $("#inference_image_date").text(data[0]['RequestTime']);
+            $("#gradcam_image_prob").text(data[0]['Inference']['Pred']);
+            $("#gradcam_image_category").text(data[0]['Inference']['InferenceResult']);
+            $("#gradcam_image_date").text(data[0]['RequestTime']);
+            $("#percentage").text(Number(data[0]['Inference']['Pred']) * 100);
+        },
+        error: function (request, status, error){
+            console.log(request, status, error);
+            alert(error);
+        }
+    });
+}
+
+
+</script>
+<!-- END OF Javascript 코드 -->
+
+</body>
+
+</html>
